@@ -93,25 +93,21 @@ async function enviarADatabase(datosForm) {
 
     if (!lider) return notify.error("Datos del líder no encontrados.");
 
-    // Estructura de la fila para SheetDB / Google Sheets
     const row = {
         timestamp: new Date().toLocaleString(),
         tipo_formulario: datosForm.tipo_formulario,
         codigo_lider: lider.codigo_lider,
         nombre_lider: lider.nombre_lider,
         area_lider: lider.area_lider,
-        // Campos de baja
         codigo_colaborador: datosForm.codigo_colaborador || "",
         nombre_colaborador: datosForm.nombre_colaborador || "",
         motivo_baja: datosForm.motivo_baja || "",
         impacto_baja: datosForm.impacto_baja || "",
         accion_posicion: datosForm.accion_posicion || "",
         comentarios_baja: datosForm.comentarios_baja || "",
-        // Campos de retención
         motivo_retencion: datosForm.motivo_retencion || "",
         acciones_retencion: datosForm.acciones_retencion || "",
         comentarios_retencion: datosForm.comentarios_retencion || "",
-        // Campos de contratación (ACTUALIZADO)
         nombre_proyecto: datosForm.nombre_proyecto || "",
         tipo_puesto: datosForm.tipo_puesto || "",
         nombre_puesto: datosForm.nombre_puesto || "",
@@ -187,9 +183,9 @@ function enviarContratacion() {
         justificacion_puesto: document.getElementById("justificacion").value.trim()
     };
 
-    // Validación de campos obligatorios para contratación
-    if (!d.nombre_proyecto || !d.nombre_puesto || !d.subarea_puesto) {
-        return notify.error("Proyecto, Nombre del Puesto y Subárea son obligatorios.");
+    // VALIDACIÓN
+    if (!d.nombre_proyecto || !d.nombre_puesto || !d.subarea_puesto || !d.justificacion_puesto) {
+        return notify.error("Para nuevas contrataciones, el Proyecto, Puesto, Subárea y Justificación son obligatorios.");
     }
     
     enviarADatabase(d);
