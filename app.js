@@ -53,8 +53,21 @@ function guardarLider() {
 }
 
 function borrarLider() {
-    sessionStorage.removeItem("lider");
-    actualizarInterfazLider();
+    Swal.fire({
+        title: '¿Cambiar de líder?',
+        text: "Se cerrará la sesión actual.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#1e40af',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, cambiar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            sessionStorage.removeItem("lider");
+            actualizarInterfazLider();
+        }
+    });
 }
 
 // ---- UI ----
@@ -80,6 +93,7 @@ async function enviarADatabase(datosForm) {
 
     if (!lider) return notify.error("Datos del líder no encontrados.");
 
+    // Estructura de la fila para SheetDB / Google Sheets
     const row = {
         timestamp: new Date().toLocaleString(),
         tipo_formulario: datosForm.tipo_formulario,
@@ -97,11 +111,11 @@ async function enviarADatabase(datosForm) {
         motivo_retencion: datosForm.motivo_retencion || "",
         acciones_retencion: datosForm.acciones_retencion || "",
         comentarios_retencion: datosForm.comentarios_retencion || "",
-        // Campos de contratación
+        // Campos de contratación (ACTUALIZADO)
         nombre_proyecto: datosForm.nombre_proyecto || "",
         tipo_puesto: datosForm.tipo_puesto || "",
         nombre_puesto: datosForm.nombre_puesto || "",
-        numero_vacantes: datosForm.numero_vacantes || "",
+        subarea_puesto: datosForm.subarea_puesto || "",
         urgencia_puesto: datosForm.urgencia_puesto || "",
         justificacion_puesto: datosForm.justificacion_puesto || ""
     };
@@ -168,11 +182,16 @@ function enviarContratacion() {
         nombre_proyecto: document.getElementById("proyecto").value.trim(),
         tipo_puesto: document.getElementById("tipoPuesto").value,
         nombre_puesto: document.getElementById("nombrePuesto").value.trim(),
-        numero_vacantes: document.getElementById("vacantes").value,
+        subarea_puesto: document.getElementById("subareaPuesto").value.trim(),
         urgencia_puesto: document.getElementById("urgencia").value,
         justificacion_puesto: document.getElementById("justificacion").value.trim()
     };
-    if (!d.nombre_proyecto) return notify.error("El nombre del proyecto es obligatorio.");
+
+    // Validación de campos obligatorios para contratación
+    if (!d.nombre_proyecto || !d.nombre_puesto || !d.subarea_puesto) {
+        return notify.error("Proyecto, Nombre del Puesto y Subárea son obligatorios.");
+    }
+    
     enviarADatabase(d);
 }
 
