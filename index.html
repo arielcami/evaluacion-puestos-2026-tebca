@@ -37,8 +37,7 @@
         <section id="registroLider" class="card">
             <div class="border-b pb-4">
                 <h2 class="text-xl font-bold text-blue-800 uppercase">Datos del Líder que responde</h2>
-                <p class="text-sm text-gray-500">Completa cada una de las secciones solicitadas. Tu código de empleado
-                    es el que te enviamos en el correo.</p>
+                <p class="text-sm text-gray-500">Completa cada una de las secciones solicitadas.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -58,6 +57,8 @@
                         <option>Tecnología</option>
                         <option>Comercial</option>
                         <option>Recursos Humanos</option>
+                        <option>Legal</option>
+                        <option>Producto</option>
                         <option>Seguridad de la Información</option>
                         <option>Tebca</option>
                     </select>
@@ -84,9 +85,12 @@
 
         <!-- MENÚ DE ACCIONES -->
         <section id="acciones" class="hidden grid grid-cols-1 md:grid-cols-3 gap-6">
-            <button onclick="mostrarFormulario('desvinculacion')" class="btn-nav bg-red-500 hover:bg-red-600">DESVINCULACIÓN</button>
-            <button onclick="mostrarFormulario('retencion')" class="btn-nav bg-amber-500 hover:bg-amber-600">RETENCIÓN</button>
-            <button onclick="mostrarFormulario('contratacion')" class="btn-nav bg-emerald-500 hover:bg-emerald-600">CONTRATACIÓN</button>
+            <button onclick="mostrarFormulario('desvinculacion')"
+                class="btn-nav bg-red-500 hover:bg-red-600">DESVINCULACIÓN</button>
+            <button onclick="mostrarFormulario('retencion')"
+                class="btn-nav bg-amber-500 hover:bg-amber-600">RETENCIÓN</button>
+            <button onclick="mostrarFormulario('contratacion')"
+                class="btn-nav bg-emerald-500 hover:bg-emerald-600">CONTRATACIÓN</button>
         </section>
 
         <!-- FORMULARIO 1: BAJAS -->
@@ -133,7 +137,7 @@
 
             <button onclick="enviarDesvinculacion()"
                 class="bg-red-600 w-full text-white py-4 rounded-xl font-bold mt-4 hover:bg-red-700 transition-colors shadow-lg">ENVIAR
-                REPORTE DE DESVINCULACIÓN</button>
+                REGISTRO DE DESVINCULACIÓN</button>
         </div>
 
         <!-- FORMULARIO 2: RETENCIÓN -->
@@ -174,12 +178,12 @@
 
             <button onclick="enviarRetencion()"
                 class="bg-amber-500 w-full text-white py-4 rounded-xl font-bold mt-4 hover:bg-amber-600 transition-colors shadow-lg">ENVIAR
-                REPORTE DE RETENCIÓN</button>
+                REGISTRO DE RETENCIÓN</button>
         </div>
 
-        <!-- FORMULARIO 3: NUEVAS POSICIONES -->
+        <!-- FORMULARIO 3: CONTRATACIONES -->
         <div id="form-contratacion" class="hidden card border-t-8 border-emerald-500">
-            <h3 class="text-2xl font-bold text-emerald-600 uppercase">Necesidad de nuevas posiciones</h3>
+            <h3 class="text-2xl font-bold text-emerald-600 uppercase">Contratación de nuevas posiciones</h3>
             <p class="instruction">Completar una entrada por cada posición a contratar.</p>
 
             <label class="label-q">Nombre del proyecto o iniciativa al que pertenece el puesto/cargo:</label>
@@ -199,28 +203,21 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                    <label class="label-q">Número de vacantes del puesto requerido (Ej: 01):</label>
-                    <input id="vacantes" type="number" class="input">
-                </div>
-                <div>
-                    <label class="label-q">Urgencia del puesto a cubrir:</label>
-                    <select id="urgencia" class="input">
-                        <option>Alta (0 - 3 meses)</option>
-                        <option>Media (3 - 6 meses)</option>
-                        <option>Baja (6 - 12 meses)</option>
-                    </select>
-                </div>
-            </div>
+            <label class="label-q">Subárea/equipo al que pertenece el nuevo puesto a contratar:</label>
+            <input id="subareaPuesto" class="input" placeholder="">
+            <label class="label-q">Urgencia del puesto a cubrir:</label>
+            <select id="urgencia" class="input">
+                <option>Alta (0 - 3 meses)</option>
+                <option>Media (3 - 6 meses)</option>
+                <option>Baja (6 - 12 meses)</option>
+            </select>
 
-            <label class="label-q">Detalla la justificación y criticidad del puesto requerido así como el impacto
-                esperado:</label>
+            <label class="label-q">Detalla la justificación y criticidad del puesto requerido así como el impacto esperado:</label>
             <textarea id="justificacion" class="input h-32"></textarea>
 
             <button onclick="enviarContratacion()"
-                class="bg-emerald-600 w-full text-white py-4 rounded-xl font-bold mt-4 hover:bg-emerald-700 transition-colors shadow-lg">ENVIAR
-                SOLICITUD DE CONTRATACIÓN</button>
+                class="bg-emerald-600 w-full text-white py-4 rounded-xl font-bold mt-4 hover:bg-emerald-700 transition-colors shadow-lg">ENVIAR REGISTRO DE CONTRATACIÓN
+            </button>
         </div>
     </div>
 
