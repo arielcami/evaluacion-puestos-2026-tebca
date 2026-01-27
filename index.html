@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación Estructura Organizacional 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style type="text/tailwindcss">
+        .input { @apply w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white text-gray-700; }
+        .label-q { @apply block text-sm font-bold text-gray-700 mb-1 mt-3; }
+        .instruction { @apply text-xs text-gray-500 italic mb-2; }
+        .card { @apply bg-white p-8 rounded-2xl shadow-xl border border-gray-100 space-y-4; }
+        .btn-nav { @apply p-4 rounded-xl font-bold shadow-lg transition-all hover:scale-105 active:scale-95 text-white text-center; }
+    </style>
+</head>
+
+<body class="bg-slate-50 min-h-screen p-4 md:p-10">
+
+    <div class="max-w-4xl mx-auto space-y-10">
+
+        <!-- INTRODUCCIÓN Y OBJETIVOS -->
+        <header class="text-center space-y-4">
+            <h1 class="text-3xl font-black text-slate-800 leading-tight uppercase">Evaluación de Estructura
+                Organizacional 2026</h1>
+            <div
+                class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left text-sm text-slate-600 bg-white p-6 rounded-xl shadow-sm border-l-4 border-blue-500">
+                <p>• Identificar posiciones/personas a dar de baja</p>
+                <p>• Definir talento clave a retener (Retención)</p>
+                <p>• Detectar necesidades de nuevas posiciones</p>
+                <p>• Evaluar oportunidades para optimizar costos</p>
+            </div>
+        </header>
+
+        <!-- SECCIÓN: DATOS DEL LÍDER -->
+        <section id="registroLider" class="card">
+            <div class="border-b pb-4">
+                <h2 class="text-xl font-bold text-blue-800 uppercase">Datos del Líder que responde</h2>
+                <p class="text-sm text-gray-500">Completa cada una de las secciones solicitadas. Tu código de empleado
+                    es el que te enviamos en el correo.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="label-q">Código de Empleado:</label>
+                    <input id="codigoLider" placeholder="Ej: 102030" class="input">
+                </div>
+                <div>
+                    <label class="label-q">Nombres y Apellidos:</label>
+                    <input id="nombreLider" placeholder="Escribe tu nombre completo" class="input">
+                </div>
+                <div class="md:col-span-2">
+                    <label class="label-q">Área (selecciona):</label>
+                    <select id="areaLider" class="input">
+                        <option value="">Seleccione...</option>
+                        <option>Operaciones</option>
+                        <option>Tecnología</option>
+                        <option>Comercial</option>
+                        <option>Recursos Humanos</option>
+                        <option>Seguridad de la Información</option>
+                        <option>Tebca</option>
+                    </select>
+                </div>
+            </div>
+            <button onclick="guardarLider()"
+                class="w-full bg-slate-800 text-white py-4 rounded-xl font-black tracking-widest hover:bg-black transition-all">INGRESAR
+                AL FORMULARIO</button>
+        </section>
+
+        <!-- PERFIL LÍDER ACTIVO -->
+        <section id="perfilLider"
+            class="hidden bg-blue-700 text-white p-6 rounded-2xl flex justify-between items-center shadow-2xl">
+            <div>
+                <p class="text-xs font-bold opacity-70 uppercase tracking-tighter">Sesión activa</p>
+                <h3 id="displayNombreLider" class="text-xl font-bold"></h3>
+                <p class="text-sm opacity-90"><span id="displayAreaLider"></span> (<span
+                        id="displayCodigoLider"></span>)</p>
+            </div>
+            <button onclick="borrarLider()"
+                class="bg-white text-blue-700 px-4 py-2 rounded-lg text-xs font-bold uppercase hover:bg-blue-50 transition-colors">Cambiar
+                Líder</button>
+        </section>
+
+        <!-- MENÚ DE ACCIONES -->
+        <section id="acciones" class="hidden grid grid-cols-1 md:grid-cols-3 gap-6">
+            <button onclick="mostrarFormulario('desvinculacion')" class="btn-nav bg-red-500 hover:bg-red-600">DESVINCULACIÓN</button>
+            <button onclick="mostrarFormulario('retencion')" class="btn-nav bg-amber-500 hover:bg-amber-600">RETENCIÓN</button>
+            <button onclick="mostrarFormulario('contratacion')" class="btn-nav bg-emerald-500 hover:bg-emerald-600">CONTRATACIÓN</button>
+        </section>
+
+        <!-- FORMULARIO 1: BAJAS -->
+        <div id="form-desvinculacion" class="hidden card border-t-8 border-red-500">
+            <h3 class="text-2xl font-bold text-red-600 uppercase">Colaborador a desvincular</h3>
+            <p class="instruction">Completar una entrada por cada persona a dar de baja.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="label-q">Código de Empleado:</label>
+                    <input id="codColabBaja" class="input">
+                </div>
+                <div>
+                    <label class="label-q">Nombres y Apellidos:</label>
+                    <input id="nomColabBaja" class="input">
+                </div>
+            </div>
+
+            <label class="label-q">Motivo principal de su baja (Selecciona):</label>
+            <select id="motivoBaja" class="input">
+                <option>Bajo desempeño</option>
+                <option>Rol dejó de ser necesario /Eliminación</option>
+                <option>Automatización/ Eficiencia</option>
+                <option>Costos vs valor que agrega</option>
+                <option>Problemas de actitud</option>
+            </select>
+
+            <label class="label-q">Impacto de su Baja en la Operación:</label>
+            <select id="impactoBaja" class="input">
+                <option>Bajo</option>
+                <option>Medio</option>
+                <option>Alto</option>
+            </select>
+
+            <label class="label-q">¿La caja/posición será eliminada, reemplazada o reconvertida? (Selecciona):</label>
+            <select id="accionPosicion" class="input">
+                <option>Eliminada</option>
+                <option>Reemplazada</option>
+                <option>Reconvertida</option>
+            </select>
+
+            <label class="label-q">Detalla comentarios adicionales sobre el caso:</label>
+            <textarea id="comentariosBaja" class="input h-32"></textarea>
+
+            <button onclick="enviarDesvinculacion()"
+                class="bg-red-600 w-full text-white py-4 rounded-xl font-bold mt-4 hover:bg-red-700 transition-colors shadow-lg">ENVIAR
+                REPORTE DE DESVINCULACIÓN</button>
+        </div>
+
+        <!-- FORMULARIO 2: RETENCIÓN -->
+        <div id="form-retencion" class="hidden card border-t-8 border-amber-500">
+            <h3 class="text-2xl font-bold text-amber-600 uppercase">Colaboradores clave a retener</h3>
+            <p class="instruction">Completar una entrada por cada persona a retener.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="label-q">Código de Empleado:</label>
+                    <input id="codColabRet" class="input">
+                </div>
+                <div>
+                    <label class="label-q">Nombres y Apellidos:</label>
+                    <input id="nomColabRet" class="input">
+                </div>
+            </div>
+
+            <label class="label-q">Motivo de la retención (Selecciona):</label>
+            <select id="motivoRetencion" class="input">
+                <option>Identificado como Talento (High Potencial) / Key people</option>
+                <option>Ocupa puesto Crítico en la organización</option>
+                <option>Conocimiento de la operación/negocio</option>
+                <option>Relación estrecha/exitosa con el cliente</option>
+            </select>
+
+            <label class="label-q">Acciones recomendadas para retención (Selecciona):</label>
+            <select id="accionesRetencion" class="input">
+                <option>Incremento Salarial</option>
+                <option>Promoción/Rotación</option>
+                <option>Inclusión en proyectos estratégicos/clave</option>
+                <option>Capacitación</option>
+                <option>Plan de Carrera</option>
+            </select>
+
+            <label class="label-q">Detalla comentarios adicionales sobre el caso:</label>
+            <textarea id="comentariosRet" class="input h-32"></textarea>
+
+            <button onclick="enviarRetencion()"
+                class="bg-amber-500 w-full text-white py-4 rounded-xl font-bold mt-4 hover:bg-amber-600 transition-colors shadow-lg">ENVIAR
+                REPORTE DE RETENCIÓN</button>
+        </div>
+
+        <!-- FORMULARIO 3: NUEVAS POSICIONES -->
+        <div id="form-contratacion" class="hidden card border-t-8 border-emerald-500">
+            <h3 class="text-2xl font-bold text-emerald-600 uppercase">Necesidad de nuevas posiciones</h3>
+            <p class="instruction">Completar una entrada por cada posición a contratar.</p>
+
+            <label class="label-q">Nombre del proyecto o iniciativa al que pertenece el puesto/cargo:</label>
+            <input id="proyecto" class="input">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="label-q">¿Es un perfil/puesto EXISTENTE O NUEVO? (Selecciona):</label>
+                    <select id="tipoPuesto" class="input">
+                        <option>Existente</option>
+                        <option>Nuevo</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="label-q">Nombre del puesto/cargo a cubrir:</label>
+                    <input id="nombrePuesto" class="input">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="label-q">Número de vacantes del puesto requerido (Ej: 01):</label>
+                    <input id="vacantes" type="number" class="input">
+                </div>
+                <div>
+                    <label class="label-q">Urgencia del puesto a cubrir:</label>
+                    <select id="urgencia" class="input">
+                        <option>Alta (0 - 3 meses)</option>
+                        <option>Media (3 - 6 meses)</option>
+                        <option>Baja (6 - 12 meses)</option>
+                    </select>
+                </div>
+            </div>
+
+            <label class="label-q">Detalla la justificación y criticidad del puesto requerido así como el impacto
+                esperado:</label>
+            <textarea id="justificacion" class="input h-32"></textarea>
+
+            <button onclick="enviarContratacion()"
+                class="bg-emerald-600 w-full text-white py-4 rounded-xl font-bold mt-4 hover:bg-emerald-700 transition-colors shadow-lg">ENVIAR
+                SOLICITUD DE CONTRATACIÓN</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
