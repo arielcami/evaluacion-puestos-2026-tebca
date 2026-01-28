@@ -87,27 +87,31 @@ function mostrarFormulario(tipo) {
     }
 }
 
-// ---- ENVÍO FINAL (Mapeo de Columnas exacto al Excel) ----
+// ---- ENVÍO FINAL ----
 async function enviarADatabase(datosForm) {
     const lider = JSON.parse(sessionStorage.getItem("lider"));
 
     if (!lider) return notify.error("Datos del líder no encontrados.");
 
+    // Estructura de la fila para SheetDB / Google Sheets
     const row = {
         timestamp: new Date().toLocaleString(),
         tipo_formulario: datosForm.tipo_formulario,
         codigo_lider: lider.codigo_lider,
         nombre_lider: lider.nombre_lider,
         area_lider: lider.area_lider,
+        // Campos de baja
         codigo_colaborador: datosForm.codigo_colaborador || "",
         nombre_colaborador: datosForm.nombre_colaborador || "",
         motivo_baja: datosForm.motivo_baja || "",
         impacto_baja: datosForm.impacto_baja || "",
         accion_posicion: datosForm.accion_posicion || "",
         comentarios_baja: datosForm.comentarios_baja || "",
+        // Campos de retención
         motivo_retencion: datosForm.motivo_retencion || "",
         acciones_retencion: datosForm.acciones_retencion || "",
         comentarios_retencion: datosForm.comentarios_retencion || "",
+        // Campos de contratación
         nombre_proyecto: datosForm.nombre_proyecto || "",
         tipo_puesto: datosForm.tipo_puesto || "",
         nombre_puesto: datosForm.nombre_puesto || "",
@@ -155,7 +159,11 @@ function enviarDesvinculacion() {
         accion_posicion: document.getElementById("accionPosicion").value,
         comentarios_baja: document.getElementById("comentariosBaja").value.trim()
     };
-    if (!d.codigo_colaborador) return notify.error("El código de empleado es obligatorio.");
+
+    if (!d.codigo_colaborador || !d.nombre_colaborador || !d.motivo_baja || !d.motivo_baja || !d.accion_posicion || !d.comentarios_baja) {
+        return notify.error("Todos los campos son obligatorios.");
+    }
+
     enviarADatabase(d);
 }
 
@@ -168,7 +176,11 @@ function enviarRetencion() {
         acciones_retencion: document.getElementById("accionesRetencion").value,
         comentarios_retencion: document.getElementById("comentariosRet").value.trim()
     };
-    if (!d.codigo_colaborador) return notify.error("El código de empleado es obligatorio.");
+
+    if (!d.codigo_colaborador || !d.nombre_colaborador || !d.comentarios_retencion || !d.motivo_retencion || !d.acciones_retencion) {
+        return notify.error("Todos los campos son obligatorios.");
+    }
+
     enviarADatabase(d);
 }
 
@@ -183,9 +195,9 @@ function enviarContratacion() {
         justificacion_puesto: document.getElementById("justificacion").value.trim()
     };
 
-    // VALIDACIÓN
-    if (!d.nombre_proyecto || !d.nombre_puesto || !d.subarea_puesto || !d.justificacion_puesto) {
-        return notify.error("Para nuevas contrataciones, el Proyecto, Puesto, Subárea y Justificación son obligatorios.");
+    // Validación de campos
+    if (!d.nombre_proyecto || !d.tipo_puesto || !d.nombre_puesto || !d.subarea_puesto || !d.urgencia_puesto || !d.justificacion_puesto) {
+        return notify.error("Todos los campos son obligatorios.");
     }
     
     enviarADatabase(d);
